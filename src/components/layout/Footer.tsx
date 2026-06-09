@@ -6,7 +6,7 @@ export default function Footer() {
           Wander<span className="text-[#F59E0B]">Wise</span>
         </div>
         <p className="text-sm text-white/70">
-          © 2026 WanderWise — Nepal & South Asia Travel
+          © 2026 TrailofGrowth — Nepal & South Asia Travel
         </p>
       </div>
     </footer>

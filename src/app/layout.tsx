@@ -15,7 +15,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "WanderWise — Nepal & South Asia Travel",
+  title: "TrailsofGrowth — Nepal & South Asia Travel",
   description: "Discover hidden gems across Nepal & South Asia",
 };
 
