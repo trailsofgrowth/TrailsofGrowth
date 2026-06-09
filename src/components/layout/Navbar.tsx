@@ -6,8 +6,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center gap-8">
         {/* Logo */}
         <Link href="/" className="font-bold text-2xl font-serif">
-          <span className="text-[#1B4332]">Wander</span>
-          <span className="text-[#F59E0B]">Wise</span>
+          <span className="text-[#1B4332]">Trails</span>
+          <span className="text-[#F59E0B]">ofGrowth</span>
         </Link>
 
         {/* Nav Links */}

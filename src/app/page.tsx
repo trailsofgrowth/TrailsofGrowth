@@ -19,29 +19,38 @@ export default function Home() {
   return (
     <div>
       {/* HERO */}
-      <section className="bg-gradient-to-br from-[#0a2e1c] via-[#1B4332] to-[#2D6A4F] py-24 px-6 text-center">
-        <div className="max-w-2xl mx-auto">
-          <span className="inline-block bg-white/10 border border-white/20 text-[#F59E0B] text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
-            🌿 Nepal & South Asia
-          </span>
-          <h1 className="text-5xl font-bold text-white font-serif leading-tight mb-5">
-            Discover <span className="text-[#F59E0B]">Hidden Gems</span><br />
-            Like Never Before
-          </h1>
-          <p className="text-white/75 text-lg mb-10 leading-relaxed">
-            Authentic travel guides, budget breakdowns, and local experiences
-            for explorers who dare to go beyond the tourist trail.
-          </p>
-          <div className="flex gap-3 justify-center flex-wrap">
-            <Link href="/destinations" className="bg-[#F59E0B] hover:bg-[#D97706] text-white font-semibold px-7 py-3 rounded-lg transition-all">
-              🗺️ Explore Destinations
-            </Link>
-            <Link href="/planner" className="border-2 border-white/50 hover:border-white text-white font-semibold px-7 py-3 rounded-lg transition-all hover:bg-white/10">
-              ✈️ Plan Your Route
-            </Link>
-          </div>
-        </div>
-      </section>
+<section className="relative py-24 px-6 text-center">
+  {/* Background Image */}
+  <div
+    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+    style={{ backgroundImage: "url('/Manaslu_View.jpg')" }}
+  />
+  {/* Dark overlay */}
+  <div className="absolute inset-0 bg-black/50" />
+
+  {/* Content */}
+  <div className="relative z-10 max-w-2xl mx-auto">
+    <span className="inline-block bg-white/10 border border-white/20 text-[#F59E0B] text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
+      🌿 Nepal & South Asia
+    </span>
+    <h1 className="text-5xl font-bold text-white font-serif leading-tight mb-5">
+      Discover <span className="text-[#F59E0B]">Hidden Gems</span><br />
+      Like Never Before
+    </h1>
+    <p className="text-white/85 text-lg mb-10 leading-relaxed">
+      Authentic travel guides, budget breakdowns, and local experiences
+      for explorers who dare to go beyond the tourist trail.
+    </p>
+    <div className="flex gap-3 justify-center flex-wrap">
+      <Link href="/destinations" className="bg-[#F59E0B] hover:bg-[#D97706] text-white font-semibold px-7 py-3 rounded-lg transition-all">
+        🗺️ Explore Destinations
+      </Link>
+      <Link href="/planner" className="border-2 border-white/50 hover:border-white text-white font-semibold px-7 py-3 rounded-lg transition-all hover:bg-white/10">
+        ✈️ Plan Your Route
+      </Link>
+    </div>
+  </div>
+</section>
 
       {/* FEATURED DESTINATIONS */}
       <section className="py-16 px-6">
@@ -83,7 +92,7 @@ export default function Home() {
       {/* WHY WANDERWISE */}
       <section className="bg-[#1B4332] py-16 px-6">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold font-serif text-white mb-2">Why WanderWise?</h2>
+          <h2 className="text-3xl font-bold font-serif text-white mb-2">Why TrailsofGrowth?</h2>
           <p className="text-white/65 mb-8">We do travel differently</p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
