@@ -27,9 +27,12 @@ export default function Navbar() {
         </div>
 
         {/* Login Button */}
-        <button className="px-5 py-2 rounded-lg border-2 border-[#1B4332] text-[#1B4332] text-sm font-semibold hover:bg-[#1B4332] hover:text-white transition-all">
-          Login
-        </button>
+        <Link
+  href="/login"
+  className="px-5 py-2 rounded-lg border-2 border-[#1B4332] text-[#1B4332] text-sm font-semibold hover:bg-[#1B4332] hover:text-white transition-all"
+>
+  Login
+</Link>
       </div>
     </nav>
   )
