@@ -59,7 +59,6 @@ export default function CustomerDashboard() {
           {/* Sidebar */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-xl shadow-sm p-5">
-              {/* Avatar */}
               <div className="flex items-center gap-3 mb-6 pb-5 border-b border-gray-100">
                 <div className="w-12 h-12 rounded-full bg-[#1B4332] text-white flex items-center justify-center text-xl font-bold">
                   {user?.email?.[0].toUpperCase()}
@@ -69,8 +68,6 @@ export default function CustomerDashboard() {
                   <p className="text-xs text-gray-400">Customer</p>
                 </div>
               </div>
-
-              {/* Nav */}
               <div className="flex flex-col gap-1">
                 {[
                   { id: 'overview', icon: '🏠', label: 'Overview' },
@@ -96,16 +93,12 @@ export default function CustomerDashboard() {
 
           {/* Main content */}
           <div className="lg:col-span-3">
-
-            {/* OVERVIEW */}
             {activeTab === 'overview' && (
               <div>
                 <div className="bg-[#D8F3DC] border border-[#1B4332]/20 rounded-xl px-5 py-4 mb-6">
                   <p className="text-[#1B4332] font-semibold">Welcome back! 👋</p>
                   <p className="text-[#1B4332]/70 text-sm mt-1">{user?.email}</p>
                 </div>
-
-                {/* Stats */}
                 <div className="grid grid-cols-3 gap-4 mb-8">
                   {[
                     { val: '4', label: 'Saved Articles' },
@@ -118,8 +111,6 @@ export default function CustomerDashboard() {
                     </div>
                   ))}
                 </div>
-
-                {/* Recently viewed */}
                 <div className="bg-white rounded-xl shadow-sm p-5">
                   <h3 className="font-bold text-base mb-4 pb-3 border-b border-gray-100">Recently Viewed</h3>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -134,7 +125,6 @@ export default function CustomerDashboard() {
               </div>
             )}
 
-            {/* SAVED ARTICLES */}
             {activeTab === 'saved' && (
               <div className="bg-white rounded-xl shadow-sm p-5">
                 <h3 className="font-bold text-base mb-4 pb-3 border-b border-gray-100">Saved Articles</h3>
@@ -146,10 +136,7 @@ export default function CustomerDashboard() {
                         <p className="text-xs text-gray-400 mt-1">{article.category} · Saved {article.date}</p>
                       </div>
                       <div className="flex gap-2 ml-4">
-                        <Link
-                          href={`/blog/${article.slug}`}
-                          className="text-xs font-semibold text-[#1B4332] border border-[#1B4332] px-3 py-1.5 rounded-lg hover:bg-[#D8F3DC] transition-all"
-                        >
+                        <Link href={`/blog/${article.slug}`} className="text-xs font-semibold text-[#1B4332] border border-[#1B4332] px-3 py-1.5 rounded-lg hover:bg-[#D8F3DC] transition-all">
                           Read
                         </Link>
                         <button className="text-xs font-semibold text-red-400 border border-red-200 px-3 py-1.5 rounded-lg hover:bg-red-50 transition-all">
@@ -162,7 +149,6 @@ export default function CustomerDashboard() {
               </div>
             )}
 
-            {/* MY ROUTES */}
             {activeTab === 'routes' && (
               <div className="bg-white rounded-xl shadow-sm p-5">
                 <h3 className="font-bold text-base mb-4 pb-3 border-b border-gray-100">My Saved Routes</h3>
@@ -174,10 +160,7 @@ export default function CustomerDashboard() {
                         <p className="text-xs text-gray-400 mt-1">{route.mode} · {route.stops} stops · Saved {route.date}</p>
                       </div>
                       <div className="flex gap-2 ml-4">
-                        <Link
-                          href="/planner"
-                          className="text-xs font-semibold text-[#1B4332] border border-[#1B4332] px-3 py-1.5 rounded-lg hover:bg-[#D8F3DC] transition-all"
-                        >
+                        <Link href="/planner" className="text-xs font-semibold text-[#1B4332] border border-[#1B4332] px-3 py-1.5 rounded-lg hover:bg-[#D8F3DC] transition-all">
                           View
                         </Link>
                         <button className="text-xs font-semibold text-red-400 border border-red-200 px-3 py-1.5 rounded-lg hover:bg-red-50 transition-all">
@@ -190,46 +173,28 @@ export default function CustomerDashboard() {
               </div>
             )}
 
-            {/* PROFILE */}
             {activeTab === 'profile' && (
               <div className="bg-white rounded-xl shadow-sm p-5">
                 <h3 className="font-bold text-base mb-4 pb-3 border-b border-gray-100">Edit Profile</h3>
                 <div className="flex flex-col gap-4 max-w-md">
                   <div>
                     <label className="text-sm font-semibold text-gray-600 mb-1.5 block">Full Name</label>
-                    <input
-                      type="text"
-                      placeholder="Your full name"
-                      className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm outline-none focus:border-[#1B4332]"
-                    />
+                    <input type="text" placeholder="Your full name" className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm outline-none focus:border-[#1B4332]"/>
                   </div>
                   <div>
                     <label className="text-sm font-semibold text-gray-600 mb-1.5 block">Email</label>
-                    <input
-                      type="email"
-                      defaultValue={user?.email}
-                      disabled
-                      className="w-full px-4 py-3 border border-gray-100 rounded-lg text-sm bg-gray-50 text-gray-400"
-                    />
+                    <input type="email" defaultValue={user?.email} disabled className="w-full px-4 py-3 border border-gray-100 rounded-lg text-sm bg-gray-50 text-gray-400"/>
                   </div>
                   <div>
                     <label className="text-sm font-semibold text-gray-600 mb-1.5 block">Bio</label>
-                    <textarea
-                      placeholder="Tell us about yourself..."
-                      rows={3}
-                      className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm outline-none focus:border-[#1B4332] resize-none"
-                    />
+                    <textarea placeholder="Tell us about yourself..." rows={3} className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm outline-none focus:border-[#1B4332] resize-none"/>
                   </div>
-                  <button
-                    onClick={() => alert('Profile saved!')}
-                    className="bg-[#1B4332] text-white font-semibold px-6 py-3 rounded-lg hover:bg-[#2D6A4F] transition-all text-sm w-fit"
-                  >
+                  <button onClick={() => alert('Profile saved!')} className="bg-[#1B4332] text-white font-semibold px-6 py-3 rounded-lg hover:bg-[#2D6A4F] transition-all text-sm w-fit">
                     Save Changes
                   </button>
                 </div>
               </div>
             )}
-
           </div>
         </div>
       </div>
