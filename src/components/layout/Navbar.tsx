@@ -11,27 +11,29 @@ export default function Navbar() {
   const supabase = createClient()
   const router = useRouter()
 
+  async function fetchRole(userId: string) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', userId)
+      .single()
+    if (profile) setRole(profile.role)
+  }
+
   useEffect(() => {
-    // Get current user on load
     async function getUser() {
       const { data: { user } } = await supabase.auth.getUser()
       if (user) {
         setUser(user)
-        // Fetch their role from profiles table
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('role, full_name')
-          .eq('id', user.id)
-          .single()
-        if (profile) setRole(profile.role)
+        await fetchRole(user.id)
       }
     }
     getUser()
 
-    // Listen for auth changes (login/logout)
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
       if (session?.user) {
         setUser(session.user)
+        await fetchRole(session.user.id)
       } else {
         setUser(null)
         setRole('')
@@ -59,13 +61,11 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center gap-8">
-        {/* Logo */}
         <Link href="/" className="font-bold text-2xl font-serif">
           <span className="text-[#1B4332]">Trails</span>
           <span className="text-[#F59E0B]">ofGrowth</span>
         </Link>
 
-        {/* Nav Links */}
         <div className="flex items-center gap-1 flex-1">
           <Link href="/" className="px-4 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-[#D8F3DC] hover:text-[#1B4332] transition-all">
             Home
@@ -79,13 +79,11 @@ export default function Navbar() {
           <Link href="/planner" className="px-4 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-[#D8F3DC] hover:text-[#1B4332] transition-all">
             Route Planner
           </Link>
-          {/* Show Write link for posters */}
           {role === 'poster' && (
             <Link href="/dashboard/poster/write" className="px-4 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-[#D8F3DC] hover:text-[#1B4332] transition-all">
               ✍️ Write
             </Link>
           )}
-          {/* Show Admin link for admins */}
           {role === 'admin' && (
             <Link href="/admin" className="px-4 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-[#D8F3DC] hover:text-[#1B4332] transition-all">
               ⚙️ Admin
@@ -93,10 +91,8 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Right side */}
         <div className="flex items-center gap-3 ml-auto">
           {user ? (
-            // Logged in — show avatar + dropdown
             <div className="relative">
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -109,9 +105,12 @@ export default function Navbar() {
                 <span className="text-gray-400">▾</span>
               </button>
 
-              {/* Dropdown */}
               {dropdownOpen && (
                 <div className="absolute right-0 top-full mt-2 bg-white border border-gray-100 rounded-xl shadow-lg w-48 py-2 z-50">
+                  <div className="px-4 py-2 border-b border-gray-100">
+                    <p className="text-xs text-gray-400">Logged in as</p>
+                    <p className="text-xs font-semibold text-[#1B4332] capitalize">{role || 'customer'}</p>
+                  </div>
                   <Link
                     href={getDashboardLink()}
                     onClick={() => setDropdownOpen(false)}
@@ -139,7 +138,6 @@ export default function Navbar() {
               )}
             </div>
           ) : (
-            // Logged out — show Login button
             <Link
               href="/login"
               className="px-5 py-2 rounded-lg border-2 border-[#1B4332] text-[#1B4332] text-sm font-semibold hover:bg-[#1B4332] hover:text-white transition-all"
