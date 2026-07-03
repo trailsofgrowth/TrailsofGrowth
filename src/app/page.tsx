@@ -33,7 +33,7 @@ export default function Home() {
     <span className="inline-block bg-white/10 border border-white/20 text-[#F59E0B] text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
       🌿 Nepal & South Asia
     </span>
-    <h1 className="text-5xl font-bold text-white font-serif leading-tight mb-5">
+    <h1 className="text-3xl sm:text-5xl font-bold text-white font-serif leading-tight mb-5">
       Discover <span className="text-[#F59E0B]">Hidden Gems</span><br />
       Like Never Before
     </h1>
@@ -55,7 +55,7 @@ export default function Home() {
       {/* FEATURED DESTINATIONS */}
       <section className="py-16 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="flex justify-between items-end mb-8">
+          <div className="flex flex-wrap justify-between items-end gap-3 mb-8">
             <div>
               <h2 className="text-3xl font-bold font-serif">Featured Destinations</h2>
               <p className="text-gray-500 mt-1">Handpicked hidden gems across Nepal & South Asia</p>
@@ -114,7 +114,7 @@ export default function Home() {
       {/* LATEST BLOG POSTS */}
       <section className="py-16 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="flex justify-between items-end mb-8">
+          <div className="flex flex-wrap justify-between items-end gap-3 mb-8">
             <div>
               <h2 className="text-3xl font-bold font-serif">Latest from the Blog</h2>
               <p className="text-gray-500 mt-1">Fresh guides published this week</p>
@@ -153,7 +153,7 @@ export default function Home() {
             <input
               type="email"
               placeholder="your@email.com"
-              className="px-4 py-3 rounded-lg border border-gray-200 text-sm w-72 outline-none focus:border-[#F59E0B]"
+              className="px-4 py-3 rounded-lg border border-gray-200 text-sm w-full sm:w-72 outline-none focus:border-[#F59E0B]"
             />
             <button className="bg-[#F59E0B] hover:bg-[#D97706] text-white font-semibold px-6 py-3 rounded-lg transition-all text-sm">
               Subscribe Free
