@@ -16,15 +16,8 @@ export default function LoginPage() {
     e.preventDefault()
     setLoading(true)
     setError('')
-
     const { error } = await supabase.auth.signInWithPassword({ email, password })
-
-    if (error) {
-      setError(error.message)
-      setLoading(false)
-      return
-    }
-
+    if (error) { setError(error.message); setLoading(false); return }
     router.push('/')
     router.refresh()
   }
@@ -37,10 +30,18 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F9F6F0] flex items-center justify-center px-6">
-      <div className="bg-white rounded-2xl shadow-sm p-8 w-full max-w-md">
+    <div className="min-h-screen bg-[#F9F6F0] flex items-center justify-center px-4 py-10">
+      <div className="bg-white rounded-2xl shadow-sm p-6 sm:p-8 w-full max-w-md">
+
+        {/* Back to home */}
+        <div className="mb-4">
+          <Link href="/" className="text-sm text-gray-400 hover:text-[#1B4332] transition-all flex items-center gap-1">
+            ← Back to home
+          </Link>
+        </div>
+
         {/* Logo */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-6">
           <Link href="/" className="text-2xl font-bold font-serif">
             <span className="text-[#1B4332]">Trails</span>
             <span className="text-[#F59E0B]">ofGrowth</span>
@@ -48,14 +49,12 @@ export default function LoginPage() {
           <p className="text-gray-500 text-sm mt-2">Welcome back! Sign in to continue</p>
         </div>
 
-        {/* Error message */}
         {error && (
           <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-lg mb-5">
             {error}
           </div>
         )}
 
-        {/* Google login */}
         <button
           onClick={handleGoogleLogin}
           className="w-full border border-gray-200 rounded-lg py-3 text-sm font-semibold text-gray-600 hover:bg-gray-50 transition-all flex items-center justify-center gap-2 mb-5"
@@ -69,7 +68,6 @@ export default function LoginPage() {
           <div className="flex-1 h-px bg-gray-100"></div>
         </div>
 
-        {/* Form */}
         <form onSubmit={handleLogin} className="flex flex-col gap-4">
           <div>
             <label className="text-sm font-semibold text-gray-600 mb-1.5 block">Email</label>
@@ -96,7 +94,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#1B4332] text-white font-semibold py-3 rounded-lg hover:bg-[#2D6A4F] transition-all disabled:opacity-60 mt-1"
+            className="w-full bg-[#1B4332] text-white font-semibold py-3 rounded-lg hover:bg-[#2D6A4F] transition-all disabled:opacity-60 mt-1 text-sm"
           >
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
