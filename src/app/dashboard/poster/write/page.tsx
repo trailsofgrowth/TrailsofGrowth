@@ -82,6 +82,36 @@ function removeFaq(index: number) {
   setFaqs(faqs.filter((_, i) => i !== index))
 }
 
+function insertFormat(format: string) {
+  const textarea = document.getElementById('article-content') as HTMLTextAreaElement
+  if (!textarea) return
+  const start = textarea.selectionStart
+  const end = textarea.selectionEnd
+  const selected = content.substring(start, end)
+  let insertion = ''
+
+  switch(format) {
+    case 'bold': insertion = `**${selected || 'bold text'}**`; break
+    case 'italic': insertion = `*${selected || 'italic text'}*`; break
+    case 'h2': insertion = `\n## ${selected || 'Heading 2'}\n`; break
+    case 'h3': insertion = `\n### ${selected || 'Heading 3'}\n`; break
+    case 'list': insertion = `\n- ${selected || 'List item'}\n- Add more items\n`; break
+    case 'link': insertion = `[${selected || 'link text'}](https://)`; break
+    case 'image': insertion = `\n![alt text](image-url)\n`; break
+    case 'tipbox': insertion = `\n💡 ${selected || 'Add your tip here'}\n`; break
+  }
+
+  const newContent = content.substring(0, start) + insertion + content.substring(end)
+  setContent(newContent)
+
+  // Restore focus and cursor position
+  setTimeout(() => {
+    textarea.focus()
+    textarea.selectionStart = start + insertion.length
+    textarea.selectionEnd = start + insertion.length
+  }, 0)
+}
+
   function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
     if (file) {
@@ -343,20 +373,37 @@ function removeFaq(index: number) {
             <div className="bg-white rounded-xl shadow-sm p-5">
               <label className="text-sm font-semibold text-gray-600 mb-2 block">Article Content *</label>
               <div className="flex gap-2 flex-wrap mb-3 p-2 bg-[#F9F6F0] rounded-lg">
-                {['Bold', 'Italic', 'H2', 'H3', '• List', '🔗 Link', '🖼 Image', '💡 Tip Box'].map(btn => (
-                  <button key={btn} className="px-3 py-1.5 bg-white border border-gray-200 rounded-md text-xs font-semibold hover:bg-[#D8F3DC] hover:border-[#1B4332] transition-all">
-                    {btn}
+                {[
+                  { label: 'Bold', format: 'bold' },
+                  { label: 'Italic', format: 'italic' },
+                  { label: 'H2', format: 'h2' },
+                  { label: 'H3', format: 'h3' },
+                  { label: '• List', format: 'list' },
+                  { label: '🔗 Link', format: 'link' },
+                  { label: '🖼 Image', format: 'image' },
+                  { label: '💡 Tip Box', format: 'tipbox' },
+                ].map(btn => (
+                  <button
+                    key={btn.format}
+                    type="button"
+                    onClick={() => insertFormat(btn.format)}
+                    className="px-3 py-1.5 bg-white border border-gray-200 rounded-md text-xs font-semibold hover:bg-[#D8F3DC] hover:border-[#1B4332] transition-all"
+                  >
+                    {btn.label}
                   </button>
                 ))}
               </div>
               <textarea
+                id="article-content"
                 value={content}
                 onChange={e => setContent(e.target.value)}
                 placeholder={"Start writing your article here...\n\n## Introduction\nTell readers what this guide covers...\n\n## Getting There\n..."}
                 rows={16}
                 className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm outline-none focus:border-[#1B4332] resize-none leading-relaxed font-mono"
               />
-              <p className="text-xs text-gray-400 mt-2">{content.length} characters {content.length > 500 ? '✅' : `(${500 - content.length} more for good SEO)`}</p>
+              <p className="text-xs text-gray-400 mt-2">
+                {content.length} characters {content.length > 500 ? '✅' : `(${500 - content.length} more for good SEO)`}
+              </p>
             </div>
 
             {/* FAQ Section */}
@@ -410,7 +457,7 @@ function removeFaq(index: number) {
                 </div>
               )}
             </div>
-            
+
             {/* Bottom save buttons */}
             <div className="flex gap-3 pb-8">
               <button
