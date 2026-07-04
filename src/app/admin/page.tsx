@@ -197,13 +197,21 @@ export default function AdminDashboard() {
                           </td>
                           <td className="px-4 py-3 text-gray-400">{new Date(a.created_at).toLocaleDateString()}</td>
                           <td className="px-4 py-3">
-                            <button
-                              onClick={() => setDeleteTarget({ type: 'article', id: a.id })}
-                              className="text-xs bg-[#FEE2E2] text-[#DC2626] px-3 py-1.5 rounded-lg font-semibold hover:opacity-80"
-                            >
-                              Delete
-                            </button>
-                          </td>
+  <div className="flex gap-2">
+    <Link
+      href={`/admin/edit/${a.id}`}
+      className="text-xs bg-[#DBEAFE] text-blue-700 px-3 py-1.5 rounded-lg font-semibold hover:opacity-80"
+    >
+      Edit
+    </Link>
+    <button
+      onClick={() => setDeleteTarget({ type: 'article', id: a.id })}
+      className="text-xs bg-[#FEE2E2] text-[#DC2626] px-3 py-1.5 rounded-lg font-semibold hover:opacity-80"
+    >
+      Delete
+    </button>
+  </div>
+</td>
                         </tr>
                       ))}
                     </tbody>
