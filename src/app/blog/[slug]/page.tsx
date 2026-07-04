@@ -16,6 +16,7 @@ interface Article {
   seo_title?: string
   meta_description?: string
   img_alt?: string
+  featured_image?: string
 }
 
 export default function BlogPostPage() {
@@ -106,7 +107,11 @@ export default function BlogPostPage() {
             <span>⏱ {readTime}</span>
           </div>
 
-          <div className={`h-72 bg-gradient-to-br ${gradient} rounded-xl mb-8`}></div>
+          {post.featured_image ? (
+            <img src={post.featured_image} alt={post.img_alt || post.title} className="w-full h-72 object-cover rounded-xl mb-8" />
+          ) : (
+            <div className={`h-72 bg-gradient-to-br ${gradient} rounded-xl mb-8`}></div>
+          )}
 
           <div className="prose max-w-none">
             <p className="text-gray-600 leading-relaxed mb-5 whitespace-pre-line">
