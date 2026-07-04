@@ -97,16 +97,16 @@ export default function BlogPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((post, i) => (
               <BlogCard
-  key={post.id}
-  title={post.title}
-  slug={post.slug}
-  category={post.category}
-  excerpt={post.excerpt || 'Read this article to learn more...'}
-  author="TrailsofGrowth Team"
-  date={new Date(post.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-  gradient={gradients[i % gradients.length]}
-  featured_image={post.featured_image}
-/>
+                key={post.id}
+                title={post.title}
+                slug={post.slug}
+                category={post.category}
+                excerpt={post.excerpt || 'Read this article to learn more...'}
+                author="TrailsofGrowth Team"
+                date={new Date(post.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                gradient={gradients[i % gradients.length]}
+                featured_image={post.featured_image}
+              />
             ))}
           </div>
         ) : (

@@ -40,8 +40,13 @@ export default function WriteArticlePage() {
   }, [])
 
   function generateSlug(text: string) {
-    return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
-  }
+  return text
+    .toLowerCase()
+    .replace(/\//g, '-')
+    .replace(/[^a-z0-9-]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+}
 
   function handleTitleChange(val: string) {
     setTitle(val)
