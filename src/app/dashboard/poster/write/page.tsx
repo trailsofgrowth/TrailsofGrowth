@@ -28,6 +28,7 @@ export default function WriteArticlePage() {
   const [imageUrl, setImageUrl] = useState<string>('')
   const supabase = createClient()
   const router = useRouter()
+  const [faqs, setFaqs] = useState<{question: string, answer: string}[]>([])
 
   useEffect(() => {
     async function getUser() {
@@ -66,6 +67,20 @@ export default function WriteArticlePage() {
   function removeTag(tag: string) {
     setTags(tags.filter(t => t !== tag))
   }
+
+  function addFaq() {
+  setFaqs([...faqs, { question: '', answer: '' }])
+}
+
+function updateFaq(index: number, field: 'question' | 'answer', value: string) {
+  const updated = [...faqs]
+  updated[index][field] = value
+  setFaqs(updated)
+}
+
+function removeFaq(index: number) {
+  setFaqs(faqs.filter((_, i) => i !== index))
+}
 
   function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
@@ -138,6 +153,7 @@ export default function WriteArticlePage() {
       robots_meta: robotsMeta,
       schema_type: schemaType,
       featured_image: uploadedImageUrl || null,
+      faqs: faqs.length > 0 ? faqs : null,
     })
 
     if (error) {
@@ -343,6 +359,58 @@ export default function WriteArticlePage() {
               <p className="text-xs text-gray-400 mt-2">{content.length} characters {content.length > 500 ? '✅' : `(${500 - content.length} more for good SEO)`}</p>
             </div>
 
+            {/* FAQ Section */}
+            <div className="bg-white rounded-xl shadow-sm p-5">
+              <div className="flex items-center justify-between mb-4">
+                <label className="text-sm font-semibold text-gray-600">❓ FAQ Section</label>
+                <button
+                  onClick={addFaq}
+                  className="text-xs bg-[#D8F3DC] text-[#1B4332] px-3 py-1.5 rounded-lg font-semibold hover:bg-[#1B4332] hover:text-white transition-all"
+                >
+                  + Add Question
+                </button>
+              </div>
+              {faqs.length === 0 ? (
+                <div className="text-center py-6 text-gray-400 text-sm border-2 border-dashed border-gray-200 rounded-lg">
+                  <p className="mb-2">No FAQs added yet</p>
+                  <p className="text-xs">Click &quot;Add Question&quot; to add FAQ items that appear as dropdowns on the article page</p>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-4">
+                  {faqs.map((faq, i) => (
+                    <div key={i} className="bg-[#F9F6F0] rounded-lg p-4 relative">
+                      <button
+                        onClick={() => removeFaq(i)}
+                        className="absolute top-3 right-3 text-red-400 hover:text-red-600 text-lg font-bold"
+                      >
+                        ×
+                      </button>
+                      <div className="mb-3 pr-6">
+                        <label className="text-xs font-semibold text-gray-500 mb-1 block">Question {i + 1}</label>
+                        <input
+                          type="text"
+                          value={faq.question}
+                          onChange={e => updateFaq(i, 'question', e.target.value)}
+                          placeholder="e.g. Is the Mardi Himal Trek suitable for beginners?"
+                          className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm outline-none focus:border-[#1B4332] bg-white"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-xs font-semibold text-gray-500 mb-1 block">Answer</label>
+                        <textarea
+                          value={faq.answer}
+                          onChange={e => updateFaq(i, 'answer', e.target.value)}
+                          placeholder="Write a clear, helpful answer..."
+                          rows={3}
+                          className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm outline-none focus:border-[#1B4332] resize-none bg-white"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+            
             {/* Bottom save buttons */}
             <div className="flex gap-3 pb-8">
               <button
